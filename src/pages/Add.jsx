@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets.js";
+import axios from "axios";
+import { backendurl } from "../App.jsx";
+import { toast } from "react-toastify";
 
 
     
 
 
-const Add = () => {
+const Add = ({token}) => {
 
     const [image1, setimage1] = useState(false)
     const [image2, setimage2] = useState(false)
@@ -25,8 +28,39 @@ const Add = () => {
 
         try{
 
-        }catch(error){
+            const formdata = new FormData();
+            formdata.append("name", name)
+            formdata.append("description", description)
+            formdata.append("price", price)
+            formdata.append("category", category)
+            formdata.append("subcategory", subcategory)
+            formdata.append("bestseller", bestseller)
+            formdata.append("sizes", JSON.stringify(sizes))
 
+            image1 && formdata.append("image1", image1)
+            image2 && formdata.append("image2", image2)
+            image3 && formdata.append("image3", image3)
+            image4 && formdata.append("image4", image4)
+
+            const response = await axios.post(backendurl + "/api/product/add", formdata, {headers:{token}});
+            console.log(response);
+            if(response.data.success){
+                toast.success(response.data.message)
+                setname('')
+                setdescription('')
+                setprice('')
+                setimage1(false)
+                setimage2(false)
+                setimage3(false)
+                setimage4(false)
+            }else{
+                toast.error(response.data.message)
+            }
+
+
+        }catch(error){
+            console.log(error)
+            toast.error(error.message)
         }
 
     }

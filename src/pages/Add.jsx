@@ -43,7 +43,7 @@ const Add = ({token}) => {
             image4 && formdata.append("image4", image4)
 
             const response = await axios.post(backendurl + "/api/product/add", formdata, {headers:{token}});
-            console.log(response);
+            // console.log(response);
             if(response.data.success){
                 toast.success(response.data.message)
                 setname('')

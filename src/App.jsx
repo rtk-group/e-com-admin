@@ -7,6 +7,7 @@ import List from './pages/List.jsx'
 import Orders from './pages/Orders.jsx'
 import Login from './components/Login.jsx'
 import { ToastContainer, toast } from 'react-toastify';
+export const currency = "$"
 
 export const backendurl = import.meta.env.VITE_BACKEND_URL
 
